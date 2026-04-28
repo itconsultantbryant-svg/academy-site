@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import { createApp } from './app.js'
 import { env } from './config/env.js'
 import { validateProductionBoot } from './config/validateProduction.js'
-import { connectDatabase } from '../db/connection.js'
+import { connectDatabase, getDialect } from '../db/connection.js'
 import { User } from '../db/orm.js'
 
 async function ensureAdminAccess() {
@@ -30,6 +30,15 @@ validateProductionBoot()
 const app = createApp()
 await connectDatabase()
 await ensureAdminAccess()
+const corsOrigins =
+  env.corsOrigin === true
+    ? ['* (reflect request origin)']
+    : Array.isArray(env.corsOrigin)
+      ? env.corsOrigin
+      : [env.corsOrigin]
+console.log(
+  `[boot] env=${env.nodeEnv} db=${getDialect()} cors=${corsOrigins.join(', ')}`,
+)
 app.listen(env.port, () => {
   console.log(`Server listening on http://localhost:${env.port}`)
 })

@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS users (
   CONSTRAINT ck_users_role CHECK (role IN ('admin', 'user', 'instructor', 'student'))
 );
 
-CREATE TABLE categories (
+CREATE TABLE IF NOT EXISTS categories (
   id BIGSERIAL PRIMARY KEY,
   name VARCHAR(128) NOT NULL,
   CONSTRAINT uq_categories_name UNIQUE (name)
