@@ -9,6 +9,7 @@ const ROUTE_BACKGROUNDS = {
   '/': [findAssetUrl('slide-1'), findAssetUrl('slide-3')],
   '/courses': [findAssetUrl('slide-2'), findAssetUrl('Data Analysis')],
   '/gallery': [findAssetUrl('slide-4'), findAssetUrl('slide-5')],
+  '/our-facility': [findAssetUrl('Facility-1'), findAssetUrl('Facility-2')],
   '/contact': [findAssetUrl('slide-5'), findAssetUrl('Communication')],
   '/about': [findAssetUrl('slide-3'), findAssetUrl('Leadership')],
   '/faculty': [findAssetUrl('Leadership'), findAssetUrl('slide-4')],

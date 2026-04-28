@@ -15,10 +15,18 @@ export default function StudentRegistrationPage() {
   const [searchParams] = useSearchParams()
   const initialCourseId = searchParams.get('course') || ''
   const courses = useMemo(
-    () =>
-      [...localCourses]
-        .map((item) => ({ id: String(item.id), title: String(item.title || '') }))
-        .sort((a, b) => a.title.localeCompare(b.title)),
+    () => {
+      const seenTitles = new Set()
+      return [...localCourses]
+        .map((item) => ({ id: String(item.id), title: String(item.title || '').trim() }))
+        .filter((item) => {
+          const key = item.title.toLowerCase()
+          if (!key || seenTitles.has(key)) return false
+          seenTitles.add(key)
+          return true
+        })
+        .sort((a, b) => a.title.localeCompare(b.title))
+    },
     []
   )
 

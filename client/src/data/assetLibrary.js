@@ -17,6 +17,7 @@ function normalize(value) {
   return String(value || '')
     .toLowerCase()
     .replace(/\.[a-z0-9]+$/i, '')
+    .replace(/&/g, ' and ')
     .replace(/[^a-z0-9]+/g, '')
 }
 

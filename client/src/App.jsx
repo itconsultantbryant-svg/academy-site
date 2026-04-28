@@ -19,6 +19,7 @@ const CertificateVerificationPage = lazy(() =>
 const BankDetailsPage = lazy(() => import('./pages/BankDetailsPage'))
 const FacultyPage = lazy(() => import('./pages/FacultyPage'))
 const GalleryPage = lazy(() => import('./pages/GalleryPage'))
+const OurFacilityPage = lazy(() => import('./pages/OurFacilityPage'))
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'))
 const TermsAndConditionsPage = lazy(() => import('./pages/TermsAndConditionsPage'))
 const OnlineCoursesLinkPage = lazy(() => import('./pages/OnlineCoursesLinkPage'))
@@ -67,6 +68,7 @@ export default function App() {
               <Route path="/faculty" element={<FacultyPage />} />
               <Route path="/instructors" element={<Navigate to="/faculty" replace />} />
               <Route path="/gallery" element={<GalleryPage />} />
+              <Route path="/our-facility" element={<OurFacilityPage />} />
               <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
               <Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
               <Route path="/online-courses-link" element={<OnlineCoursesLinkPage />} />

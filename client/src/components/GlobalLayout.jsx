@@ -92,6 +92,7 @@ export default function GlobalLayout() {
     { to: '/courses', label: 'Courses', shortLabel: 'Courses' },
     { to: '/faculty', label: 'Faculty', shortLabel: 'Faculty' },
     { to: '/gallery', label: 'Gallery', shortLabel: 'Gallery' },
+    { to: '/our-facility', label: 'Our Facility', shortLabel: 'Facility' },
     { to: '/blog', label: 'Blog', shortLabel: 'Blog' },
     { to: '/handbook', label: 'Handbook', shortLabel: 'Handbook' },
     { to: '/online-courses-link', label: 'Online Courses Link', shortLabel: 'Online' },
@@ -104,6 +105,7 @@ export default function GlobalLayout() {
     { to: '/courses', label: 'Courses' },
     { to: '/faculty', label: 'Faculty' },
     { to: '/gallery', label: 'Gallery' },
+    { to: '/our-facility', label: 'Our Facility' },
     { to: '/blog', label: 'Articles' },
     { to: '/handbook', label: 'Handbook' },
     { to: '/contact', label: 'Contact' },
@@ -111,6 +113,7 @@ export default function GlobalLayout() {
   const resourceLinks = [
     { to: '/bank-details', label: 'Bank Details' },
     { to: '/gallery', label: 'Gallery' },
+    { to: '/our-facility', label: 'Our Facility' },
     { to: '/privacy-policy', label: 'Privacy Policy' },
     { to: '/terms-and-conditions', label: 'Terms and Conditions' },
     { to: '/online-courses-link', label: 'Online Courses Link' },
