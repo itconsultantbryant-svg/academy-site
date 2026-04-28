@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply m-0 bg-slate-950 text-slate-100 antialiased;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.28), transparent 38%),
+      radial-gradient(circle at 80% 0%, rgba(245, 158, 11, 0.14), transparent 42%);
+    min-height: 100vh;
+    transition: background-color 300ms ease, color 300ms ease;
+  }
+
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  .glass-card,
+  .section-surface {
+    transition:
+      background-color 220ms ease,
+      border-color 220ms ease,
+      color 220ms ease,
+      box-shadow 220ms ease,
+      transform 180ms ease;
+  }
+
+  html.theme-light body {
+    @apply bg-slate-100 text-slate-900;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.16), transparent 38%),
+      radial-gradient(circle at 80% 0%, rgba(245, 158, 11, 0.12), transparent 42%);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply outline-none ring-2 ring-cyan-300 ring-offset-2 ring-offset-slate-900;
+  }
+
+  html.theme-light a:focus-visible,
+  html.theme-light button:focus-visible,
+  html.theme-light input:focus-visible,
+  html.theme-light textarea:focus-visible,
+  html.theme-light select:focus-visible {
+    @apply ring-cyan-700 ring-offset-slate-100;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply rounded-2xl border border-blue-200/20 bg-white/5 shadow-soft backdrop-blur;
+  }
+
+  html.theme-light .glass-card {
+    @apply border-slate-900/10 bg-white/70;
+  }
+
+  .page-wrap {
+    @apply mx-auto w-full max-w-6xl px-4 py-8 md:px-6;
+  }
+
+  .ui-link {
+    @apply transition-colors duration-200 hover:text-amber-300;
+  }
+
+  .section-surface {
+    @apply rounded-2xl border border-blue-200/20 bg-white/5;
+  }
+}
+
+@layer base {
+  input,
+  textarea,
+  select {
+    @apply rounded-xl border border-blue-200/20 bg-white/5 px-3 py-2.5 text-slate-100 placeholder:text-slate-400 transition duration-200;
+  }
+
+  input:hover,
+  textarea:hover,
+  select:hover {
+    @apply border-blue-200/40;
+  }
+
+  button {
+    @apply transition duration-200;
+  }
+
+  @media (hover: none) {
+    button:active,
+    a:active {
+      transform: scale(0.98);
+    }
+  }
+
+  html.theme-light input,
+  html.theme-light textarea,
+  html.theme-light select {
+    @apply border-slate-300 bg-white text-slate-800 placeholder:text-slate-500;
+  }
+
+  html.theme-light .text-blue-100 {
+    @apply text-slate-700;
+  }
+
+  html.theme-light .text-blue-200 {
+    @apply text-slate-600;
+  }
+
+  html.theme-light .text-slate-200 {
+    @apply text-slate-700;
+  }
+
+  html.theme-light .text-slate-300 {
+    @apply text-slate-600;
+  }
+
+  html.theme-light .text-slate-400 {
+    @apply text-slate-500;
+  }
+
+  html.theme-light .text-white {
+    @apply text-slate-900;
+  }
+
+  html.theme-light .bg-white\/5 {
+    background-color: rgba(15, 23, 42, 0.04);
+  }
+
+  html.theme-light .bg-white\/10 {
+    background-color: rgba(15, 23, 42, 0.08);
+  }
+
+  html.theme-light .bg-white\/20 {
+    background-color: rgba(15, 23, 42, 0.14);
+  }
+
+  html.theme-light .bg-blue-900\/20 {
+    background-color: rgba(30, 64, 175, 0.08);
+  }
+
+  html.theme-light .border-blue-200\/20 {
+    border-color: rgba(30, 64, 175, 0.15);
+  }
+
+  html.theme-light .border-blue-200\/40 {
+    border-color: rgba(30, 64, 175, 0.25);
+  }
+
+  html.theme-light .border-white\/10 {
+    border-color: rgba(15, 23, 42, 0.12);
+  }
+
+  html.theme-light .border-white\/20 {
+    border-color: rgba(15, 23, 42, 0.16);
+  }
+
+  html.theme-light .border-white\/25 {
+    border-color: rgba(15, 23, 42, 0.2);
+  }
+
+  html.theme-light .border-white\/30 {
+    border-color: rgba(15, 23, 42, 0.24);
+  }
+
+  html.theme-light .hover\:bg-white\/10:hover {
+    background-color: rgba(15, 23, 42, 0.08);
+  }
+
+  html.theme-light img[aria-hidden='true'] {
+    opacity: 0.06;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-amber-400 px-5 py-2.5 text-sm font-semibold text-slate-900 transition duration-200 hover:-translate-y-0.5 hover:bg-amber-300;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/30 px-5 py-2.5 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-white/10;
+  }
+
+  html.theme-light .btn-outline {
+    @apply border-slate-300 text-slate-800 hover:bg-slate-200/60;
+  }
+}
