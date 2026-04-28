@@ -175,9 +175,14 @@ export default function ManageCoursesPage() {
   }
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-5">
       <h2 className="text-xl font-semibold text-white">Manage Courses</h2>
-      <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
+      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+        <p className="text-sm text-slate-300">
+          Create, update, and review courses connected to the public catalog and student registration flow.
+        </p>
+      </div>
+      <div className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-4 sm:grid-cols-[1fr_auto]">
         <input
           placeholder="Search courses..."
           value={query}
@@ -190,7 +195,10 @@ export default function ManageCoursesPage() {
           {filtered.length} result{filtered.length === 1 ? '' : 's'}
         </p>
       </div>
-      <form onSubmit={submit} className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-4">
+      <form onSubmit={submit} className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-4 md:p-5">
+        <p className="text-sm font-semibold uppercase tracking-wide text-blue-200">
+          {form.id ? 'Edit Course' : 'Create Course'}
+        </p>
         <input placeholder="Title" value={form.title} onBlur={() => touch('title')} onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))} required />
         {touched.title && titleError ? <p className="text-xs text-rose-200">{titleError}</p> : null}
         <textarea placeholder="Description" value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} rows={4} />
@@ -212,10 +220,10 @@ export default function ManageCoursesPage() {
         </div>
       </form>
 
-      {error ? <p className="text-rose-200">{error}</p> : null}
+      {error ? <p className="rounded-lg border border-rose-300/30 bg-rose-500/10 px-3 py-2 text-sm text-rose-200">{error}</p> : null}
 
       {loading ? (
-        <p>Loading...</p>
+        <p className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-300">Loading courses...</p>
       ) : (
         <>
           <ul className="space-y-2">
@@ -232,7 +240,7 @@ export default function ManageCoursesPage() {
               </li>
             ))}
           </ul>
-          <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-white/10 bg-white/5 p-3">
             <p className="text-sm text-slate-400">
               Page {page} of {pages}
             </p>

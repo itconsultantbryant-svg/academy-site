@@ -94,8 +94,8 @@ export default function ManageSubscribersPage() {
     }
   }, [])
 
-  if (loading) return <p>Loading subscribers...</p>
-  if (error) return <p className="text-rose-200">{error}</p>
+  if (loading) return <p className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-300">Loading subscribers...</p>
+  if (error) return <p className="rounded-lg border border-rose-300/30 bg-rose-500/10 px-3 py-2 text-sm text-rose-200">{error}</p>
   const grouped = groupByDay(subscribers)
 
   function exportExcel() {
@@ -123,7 +123,7 @@ export default function ManageSubscribersPage() {
   }
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-xl font-semibold text-white">Subscribers</h2>
         <div className="flex gap-2">
@@ -135,8 +135,13 @@ export default function ManageSubscribersPage() {
           </button>
         </div>
       </div>
+      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+        <p className="text-sm text-slate-300">
+          Subscriber records are grouped by day and can be exported for reporting and outreach tracking.
+        </p>
+      </div>
       {subscribers.length === 0 ? (
-        <p className="text-slate-300">No subscribers yet.</p>
+        <p className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-300">No subscribers yet.</p>
       ) : (
         grouped.map((group) => (
           <article key={group.key} className="space-y-2">

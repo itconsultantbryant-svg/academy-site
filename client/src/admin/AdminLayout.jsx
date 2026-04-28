@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { adminLogin, getSession, logout } from '../services/admin/authService'
 import usePageMeta from '../hooks/usePageMeta'
@@ -8,6 +8,8 @@ import { adminRoutes } from './adminRoutes'
 const navItems = adminRoutes.map(({ to, label, end }) => ({ to, label, end }))
 
 export default function AdminLayout() {
+  const location = useLocation()
+  const didInitSession = useRef(false)
   const [user, setUser] = useState(null)
   const [email, setEmail] = useState(
     import.meta.env.DEV ? 'admin@prinstineacademy.org' : '',
@@ -17,8 +19,13 @@ export default function AdminLayout() {
   )
   const [authError, setAuthError] = useState('')
   const [loading, setLoading] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const isAuthenticated = useMemo(() => Boolean(user), [user])
+  const activeSection = useMemo(
+    () => navItems.find((item) => item.to === location.pathname)?.label || 'Overview',
+    [location.pathname]
+  )
   usePageMeta({
     title: isAuthenticated ? 'Admin Panel' : 'Admin Login',
     description: 'Administrative interface for Prinstine Academy.',
@@ -38,6 +45,8 @@ export default function AdminLayout() {
   }
 
   useEffect(() => {
+    if (didInitSession.current) return
+    didInitSession.current = true
     refreshSession()
   }, [])
 
@@ -76,20 +85,42 @@ export default function AdminLayout() {
     return () => window.removeEventListener('popstate', onPopState)
   }, [confirmLeaveIfDirty])
 
+  useEffect(() => {
+    setSidebarOpen(false)
+  }, [location.pathname])
+
   if (loading) {
     return <section className="glass-card p-6">Checking admin session...</section>
   }
 
   if (!isAuthenticated) {
     return (
-      <section className="mx-auto max-w-md space-y-4 glass-card p-6 md:p-8">
+      <section className="mx-auto max-w-md space-y-4 rounded-2xl border border-blue-200/20 bg-white/5 p-6 shadow-soft md:p-8">
         <h1 className="text-2xl font-semibold text-white">Admin Login</h1>
+        <p className="text-sm text-slate-300">
+          Sign in to access analytics and management dashboards.
+        </p>
         <form onSubmit={handleLogin} className="grid gap-3">
-          <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-          <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" />
-          <button type="submit">Sign in</button>
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+          />
+          <input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            placeholder="Password"
+          />
+          <button type="submit" className="btn-primary">
+            Sign in
+          </button>
         </form>
-        {authError ? <p className="text-rose-200">{authError}</p> : null}
+        {authError ? (
+          <p className="rounded-lg border border-rose-300/30 bg-rose-500/10 px-3 py-2 text-sm text-rose-200">
+            {authError}
+          </p>
+        ) : null}
         <p className="text-sm text-slate-400">Use your admin credentials to continue.</p>
       </section>
     )
@@ -120,30 +151,69 @@ export default function AdminLayout() {
 
   return (
     <section className="space-y-4">
-      <div className="glass-card flex flex-wrap items-center justify-between gap-3 p-4">
-        <div>
-          <h1 className="text-2xl font-semibold text-white">Admin Panel</h1>
-          <p className="text-sm text-slate-300">Signed in as {user.email}</p>
-          <p className="mt-1 text-xs text-amber-300">
-            Dashboard is currently in analysis/view mode. Editing operations are disabled.
-          </p>
+      <div className="rounded-2xl border border-blue-200/20 bg-white/5 p-4 md:p-5">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h1 className="text-2xl font-semibold text-white">Admin Dashboard</h1>
+            <p className="text-sm text-slate-300">Signed in as {user.email}</p>
+            <p className="mt-1 text-xs text-amber-300">
+              Analysis/view mode is active for monitoring and reporting.
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setSidebarOpen((v) => !v)}
+              className="rounded-full border border-white/20 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/10 lg:hidden"
+            >
+              {sidebarOpen ? 'Hide Sections' : 'Sections'}
+            </button>
+            <Link
+              to="/"
+              onClick={(e) => {
+                if (!confirmLeaveIfDirty()) e.preventDefault()
+              }}
+              className="rounded-full border border-white/20 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/10"
+            >
+              Back to site
+            </Link>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="rounded-full border border-rose-300/40 bg-rose-500/20 px-3 py-1.5 text-sm text-rose-100 hover:bg-rose-500/30"
+            >
+              Logout
+            </button>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <Link
-            to="/"
-            onClick={(e) => {
-              if (!confirmLeaveIfDirty()) e.preventDefault()
-            }}
-            className="rounded-full border border-white/20 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/10"
-          >
-            Back to site
-          </Link>
-          <button type="button" onClick={handleLogout} className="rounded-full border border-rose-300/40 bg-rose-500/20 px-3 py-1.5 text-sm text-rose-100 hover:bg-rose-500/30">Logout</button>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+            <p className="text-xs uppercase tracking-wide text-blue-200">Current Section</p>
+            <p className="mt-1 text-sm font-semibold text-white">{activeSection}</p>
+          </div>
+          <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+            <p className="text-xs uppercase tracking-wide text-blue-200">Role</p>
+            <p className="mt-1 text-sm font-semibold text-white">
+              {String(user.role || 'admin')}
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+            <p className="text-xs uppercase tracking-wide text-blue-200">Routes Connected</p>
+            <p className="mt-1 text-sm font-semibold text-white">{navItems.length}</p>
+          </div>
         </div>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[260px_1fr]">
-        <aside className="glass-card p-3">
+      <div className="grid gap-4 lg:grid-cols-[280px_1fr]">
+        <aside
+          className={[
+            'rounded-2xl border border-blue-200/20 bg-white/5 p-3 lg:sticky lg:top-24 lg:block lg:h-fit',
+            sidebarOpen ? 'block' : 'hidden lg:block',
+          ].join(' ')}
+        >
+          <p className="px-2 pb-2 text-xs font-semibold uppercase tracking-wide text-blue-200">
+            Dashboard Sections
+          </p>
           <nav className="grid gap-1" aria-label="Admin sections">
             {navItems.map((item) => (
               <NavLink
@@ -155,7 +225,7 @@ export default function AdminLayout() {
                 }}
                 className={({ isActive }) =>
                   [
-                    'rounded-xl px-3 py-2 text-sm transition',
+                    'rounded-xl px-3 py-2.5 text-sm transition',
                     isActive
                       ? 'bg-cyan-400/20 text-cyan-100'
                       : 'text-slate-300 hover:bg-white/10 hover:text-white',
@@ -172,7 +242,7 @@ export default function AdminLayout() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25 }}
-          className="glass-card p-4 md:p-6"
+          className="rounded-2xl border border-blue-200/20 bg-white/5 p-4 md:p-6"
         >
           <Outlet />
         </motion.div>

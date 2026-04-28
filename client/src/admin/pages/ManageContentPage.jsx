@@ -119,10 +119,15 @@ export default function ManageContentPage() {
   }
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-5">
       <h2 className="text-xl font-semibold text-white">Manage Content (CMS)</h2>
+      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+        <p className="text-sm text-slate-300">
+          Edit structured CMS sections and media used by homepage, navbar, footer, and other content blocks.
+        </p>
+      </div>
 
-      <label className="grid gap-1">
+      <label className="grid gap-1 rounded-xl border border-white/10 bg-white/5 p-4">
         <span className="text-sm text-slate-300">Section</span>
         <select value={section} onChange={(e) => setSection(e.target.value)}>
           {sectionOptions.map((name) => (
@@ -131,7 +136,7 @@ export default function ManageContentPage() {
         </select>
       </label>
 
-      <form onSubmit={submitJson} className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-4">
+      <form onSubmit={submitJson} className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-4 md:p-5">
         <p className="text-sm text-slate-400">JSON Content</p>
         <textarea rows={14} value={jsonText} onChange={(e) => setJsonText(e.target.value)} className="font-mono text-sm" />
         {!parsed.ok ? <p className="text-rose-200">{parsed.message}</p> : null}
@@ -140,7 +145,7 @@ export default function ManageContentPage() {
         </button>
       </form>
 
-      <form onSubmit={submitImage} className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-4">
+      <form onSubmit={submitImage} className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-4 md:p-5">
         <p className="text-sm text-slate-400">Hero/Section Image Upload</p>
         <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files?.[0] || null)} />
         {preview ? <img src={preview} alt="Section preview" className="max-h-40 rounded-lg object-cover" /> : null}
@@ -149,8 +154,8 @@ export default function ManageContentPage() {
         </button>
       </form>
 
-      {status ? <p className="text-emerald-200">{status}</p> : null}
-      {error ? <p className="text-rose-200">{error}</p> : null}
+      {status ? <p className="rounded-lg border border-emerald-300/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-200">{status}</p> : null}
+      {error ? <p className="rounded-lg border border-rose-300/30 bg-rose-500/10 px-3 py-2 text-sm text-rose-200">{error}</p> : null}
     </section>
   )
 }

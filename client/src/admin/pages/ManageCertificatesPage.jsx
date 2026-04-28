@@ -117,10 +117,15 @@ export default function ManageCertificatesPage() {
   }
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-5">
       <h2 className="text-xl font-semibold text-white">Manage Certificates</h2>
+      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+        <p className="text-sm text-slate-300">
+          Create certificates and run verification checks linked to student course records.
+        </p>
+      </div>
 
-      <form onSubmit={submitCreate} className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-4">
+      <form onSubmit={submitCreate} className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-4 md:p-5">
         <p className="text-sm text-slate-400">Create Certificate</p>
         <input placeholder="Student Name" value={form.student_name} onBlur={() => setTouchedCreate((t) => ({ ...t, student_name: true }))} onChange={(e) => setForm((f) => ({ ...f, student_name: e.target.value }))} required />
         {touchedCreate.student_name && createErrors.student_name ? <p className="text-xs text-rose-200">{createErrors.student_name}</p> : null}
@@ -138,7 +143,7 @@ export default function ManageCertificatesPage() {
         </button>
       </form>
 
-      <form onSubmit={submitVerify} className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-4">
+      <form onSubmit={submitVerify} className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-4 md:p-5">
         <p className="text-sm text-slate-400">Verify Certificates</p>
         <input placeholder="Certificate ID" value={query.certificate_id} onBlur={() => setTouchedVerify((t) => ({ ...t, certificate_id: true }))} onChange={(e) => setQuery((q) => ({ ...q, certificate_id: e.target.value }))} />
         <input placeholder="Student Name" value={query.student_name} onBlur={() => setTouchedVerify((t) => ({ ...t, student_name: true }))} onChange={(e) => setQuery((q) => ({ ...q, student_name: e.target.value }))} />
@@ -150,8 +155,8 @@ export default function ManageCertificatesPage() {
         </button>
       </form>
 
-      {status ? <p className="text-emerald-200">{status}</p> : null}
-      {error ? <p className="text-rose-200">{error}</p> : null}
+      {status ? <p className="rounded-lg border border-emerald-300/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-200">{status}</p> : null}
+      {error ? <p className="rounded-lg border border-rose-300/30 bg-rose-500/10 px-3 py-2 text-sm text-rose-200">{error}</p> : null}
 
       {results.length ? (
         <ul className="space-y-2">

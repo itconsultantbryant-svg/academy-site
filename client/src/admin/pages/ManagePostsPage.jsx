@@ -123,9 +123,14 @@ export default function ManagePostsPage() {
   }
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-5">
       <h2 className="text-xl font-semibold text-white">Manage Posts</h2>
-      <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
+      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+        <p className="text-sm text-slate-300">
+          Manage news and article content used across the public blog and highlights sections.
+        </p>
+      </div>
+      <div className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-4 sm:grid-cols-[1fr_auto]">
         <input
           placeholder="Search posts..."
           value={query}
@@ -138,7 +143,10 @@ export default function ManagePostsPage() {
           {filtered.length} result{filtered.length === 1 ? '' : 's'}
         </p>
       </div>
-      <form onSubmit={submit} className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-4">
+      <form onSubmit={submit} className="grid gap-3 rounded-xl border border-white/10 bg-white/5 p-4 md:p-5">
+        <p className="text-sm font-semibold uppercase tracking-wide text-blue-200">
+          {form.id ? 'Edit Post' : 'Create Post'}
+        </p>
         <input placeholder="Title" value={form.title} onBlur={() => touch('title')} onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))} required />
         {touched.title && titleError ? <p className="text-xs text-rose-200">{titleError}</p> : null}
         <textarea placeholder="Rich content (HTML supported)" rows={6} value={form.content} onBlur={() => touch('content')} onChange={(e) => setForm((f) => ({ ...f, content: e.target.value }))} />
@@ -151,13 +159,13 @@ export default function ManagePostsPage() {
         </div>
       </form>
 
-      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+      <div className="rounded-xl border border-white/10 bg-white/5 p-4 md:p-5">
         <p className="mb-2 text-sm text-slate-400">Live Preview</p>
         <h3 className="text-lg font-semibold text-cyan-200">{form.title || 'Post title preview'}</h3>
         <div className="prose prose-invert mt-2 max-w-none" dangerouslySetInnerHTML={{ __html: form.content || '<p>Content preview...</p>' }} />
       </div>
 
-      {error ? <p className="text-rose-200">{error}</p> : null}
+      {error ? <p className="rounded-lg border border-rose-300/30 bg-rose-500/10 px-3 py-2 text-sm text-rose-200">{error}</p> : null}
 
       <ul className="space-y-2">
         {paginated.map((item) => (
@@ -173,7 +181,7 @@ export default function ManagePostsPage() {
           </li>
         ))}
       </ul>
-      <div className="flex flex-wrap items-center justify-between gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-white/10 bg-white/5 p-3">
         <p className="text-sm text-slate-400">
           Page {page} of {pages}
         </p>

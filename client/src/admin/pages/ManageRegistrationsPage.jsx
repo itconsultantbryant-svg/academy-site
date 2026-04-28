@@ -189,8 +189,8 @@ export default function ManageRegistrationsPage() {
     printAsPdf('Student Registrations Report', headers, rows)
   }
 
-  if (loading) return <p>Loading registrations...</p>
-  if (error) return <p className="text-rose-200">{error}</p>
+  if (loading) return <p className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-300">Loading registrations...</p>
+  if (error) return <p className="rounded-lg border border-rose-300/30 bg-rose-500/10 px-3 py-2 text-sm text-rose-200">{error}</p>
 
   return (
     <section className="space-y-6">
@@ -222,6 +222,11 @@ export default function ManageRegistrationsPage() {
             Export CSV
           </button>
         </div>
+      </div>
+      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+        <p className="text-sm text-slate-300">
+          Registration data feeds this dashboard in real time and is grouped by day for easier review and export.
+        </p>
       </div>
 
       <div className="rounded-xl border border-white/10 bg-white/5 p-4 md:p-5">
@@ -255,7 +260,7 @@ export default function ManageRegistrationsPage() {
       </div>
 
       {registrations.length === 0 ? (
-        <p className="text-slate-300">No student registrations yet.</p>
+        <p className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-300">No student registrations yet.</p>
       ) : (
         grouped.map((group) => (
           <article key={group.key} className="space-y-2">

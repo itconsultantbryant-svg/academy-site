@@ -73,6 +73,14 @@ const PRICE_LIST = [
   ['Electrical Configuration ( House wiring )', 225],
 ]
 
+const IMAGE_HINTS = {
+  'Compliance Management': 'Compliance Management',
+  'Monitoring & Evaluation': 'Monitoring & Evaluation',
+  'Creative Art & Craft': 'Creative Arts & Craft',
+  'Policy Communication Advocacy': 'Policy Communication Advocacy',
+  'Primary Education': 'Primary Education',
+}
+
 function normalizeTitle(value) {
   return String(value || '')
     .toLowerCase()
@@ -101,7 +109,7 @@ const RAW_COURSES = PRICE_LIST.map(([title, price]) => [
   title,
   inferCategory(title),
   inferTags(title),
-  title,
+  IMAGE_HINTS[title] || title,
   price,
 ])
 
