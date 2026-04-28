@@ -144,6 +144,26 @@
     @apply text-slate-900;
   }
 
+  html.theme-light .text-amber-300 {
+    @apply text-amber-700;
+  }
+
+  html.theme-light .text-amber-200 {
+    @apply text-amber-700;
+  }
+
+  html.theme-light .text-blue-300 {
+    @apply text-blue-700;
+  }
+
+  html.theme-light [class*='bg-gradient-to-r'] .text-white {
+    color: #ffffff;
+  }
+
+  html.theme-light [class*='bg-gradient-to-r'] .text-blue-100 {
+    color: rgba(219, 234, 254, 0.95);
+  }
+
   html.theme-light .bg-white\/5 {
     background-color: rgba(15, 23, 42, 0.04);
   }

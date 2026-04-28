@@ -27,7 +27,7 @@ export default function ContactPage() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <InfoCard label="Phone / WhatsApp" value="0774917393" />
+        <InfoCard label="Phone / WhatsApp" value="0774917393 / +231887917393" />
         <InfoCard label="Email" value="info@prinstineacademy.org" />
         <InfoCard label="Support Hours" value="Mon-Fri: 8:30 AM - 5:30 PM | Sat: 10:00 AM - 2:00 PM" />
         <InfoCard label="Location" value="PA Rib House Junction, Airfield Sinkor, Monrovia-Liberia" />
@@ -83,7 +83,7 @@ export default function ContactPage() {
           <article className="section-surface p-4">
             <h3 className="text-sm font-semibold text-white">Need urgent support?</h3>
             <p className="mt-2 text-sm text-blue-100">
-              Call or message us directly on WhatsApp and our admissions team will assist you.
+              Call or message us directly on WhatsApp at 0774917393 or +231887917393 and our admissions team will assist you.
             </p>
           </article>
         </section>

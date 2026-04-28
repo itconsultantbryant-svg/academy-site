@@ -383,7 +383,7 @@ export default function HomePage() {
             <p className="inline-flex rounded-full bg-blue-900/30 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-blue-100">
               {item.duration}
             </p>
-            <h3 className="mt-3 text-lg font-semibold text-white">{item.title}</h3>
+            <h3 className="mt-3 text-lg font-semibold text-[#4f7dff]">{item.title}</h3>
             <p className="mt-3 text-sm leading-relaxed text-blue-100">{item.text}</p>
           </Reveal>
         ))}
@@ -610,7 +610,7 @@ export default function HomePage() {
 function SectionHeading({ title, subtitle }) {
   return (
     <div className="space-y-2.5">
-      <h2 className="text-[1.75rem] font-bold tracking-tight text-white md:text-[2.1rem]">{title}</h2>
+      <h2 className="text-[1.75rem] font-bold tracking-tight text-[#4f7dff] md:text-[2.1rem]">{title}</h2>
       {subtitle ? <p className="max-w-3xl text-sm leading-relaxed text-blue-100 md:text-base">{subtitle}</p> : null}
     </div>
   )
