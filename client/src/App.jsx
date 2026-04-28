@@ -4,6 +4,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import GlobalLayout from './components/GlobalLayout'
 import { PageSkeleton } from './components/Skeletons'
 import AdminLayout from './admin/AdminLayout'
+import { adminRoutes } from './admin/adminRoutes'
 
 const HomePage = lazy(() => import('./pages/HomePage'))
 const CoursesPage = lazy(() => import('./pages/CoursesPage'))
@@ -78,12 +79,36 @@ export default function App() {
 
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<DashboardOverviewPage />} />
-                <Route path="courses" element={<ManageCoursesPage />} />
-                <Route path="posts" element={<ManagePostsPage />} />
-                <Route path="content" element={<ManageContentPage />} />
-                <Route path="certificates" element={<ManageCertificatesPage />} />
-                <Route path="subscribers" element={<ManageSubscribersPage />} />
-                <Route path="registrations" element={<ManageRegistrationsPage />} />
+                {adminRoutes
+                  .filter((route) => route.path)
+                  .map((route) => {
+                    if (route.pageKey === 'courses') {
+                      return <Route key={route.path} path={route.path} element={<ManageCoursesPage />} />
+                    }
+                    if (route.pageKey === 'posts') {
+                      return <Route key={route.path} path={route.path} element={<ManagePostsPage />} />
+                    }
+                    if (route.pageKey === 'content') {
+                      return <Route key={route.path} path={route.path} element={<ManageContentPage />} />
+                    }
+                    if (route.pageKey === 'certificates') {
+                      return (
+                        <Route key={route.path} path={route.path} element={<ManageCertificatesPage />} />
+                      )
+                    }
+                    if (route.pageKey === 'subscribers') {
+                      return (
+                        <Route key={route.path} path={route.path} element={<ManageSubscribersPage />} />
+                      )
+                    }
+                    if (route.pageKey === 'registrations') {
+                      return (
+                        <Route key={route.path} path={route.path} element={<ManageRegistrationsPage />} />
+                      )
+                    }
+                    return null
+                  })}
+                <Route path="*" element={<Navigate to="/admin" replace />} />
               </Route>
 
               <Route path="/home" element={<Navigate to="/" replace />} />

@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { listCourses } from '../../services/admin/courseAdminService'
 import { listPosts } from '../../services/admin/postAdminService'
 import { getSection } from '../../services/admin/contentAdminService'
 import { listSubscribers } from '../../services/admin/subscriberAdminService'
+import { adminRoutes } from '../adminRoutes'
 
 function StatCard({ label, value }) {
   return (
@@ -57,6 +59,22 @@ export default function DashboardOverviewPage() {
         <StatCard label="Posts" value={stats.posts} />
         <StatCard label="CMS Sections Configured" value={stats.cmsSections} />
         <StatCard label="Subscribers" value={stats.subscribers} />
+      </div>
+      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-blue-200">
+          Admin Sections
+        </h3>
+        <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {adminRoutes.map((route) => (
+            <Link
+              key={route.to}
+              to={route.to}
+              className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-200 transition hover:border-cyan-300/40 hover:text-cyan-100"
+            >
+              {route.label}
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   )

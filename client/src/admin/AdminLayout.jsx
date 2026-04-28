@@ -3,16 +3,9 @@ import { Link, NavLink, Outlet } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { adminLogin, getSession, logout } from '../services/admin/authService'
 import usePageMeta from '../hooks/usePageMeta'
+import { adminRoutes } from './adminRoutes'
 
-const navItems = [
-  { to: '/admin', label: 'Overview', end: true },
-  { to: '/admin/courses', label: 'Manage Courses' },
-  { to: '/admin/posts', label: 'Manage Posts' },
-  { to: '/admin/content', label: 'Manage Content' },
-  { to: '/admin/certificates', label: 'Manage Certificates' },
-  { to: '/admin/subscribers', label: 'Subscribers' },
-  { to: '/admin/registrations', label: 'Registrations' },
-]
+const navItems = adminRoutes.map(({ to, label, end }) => ({ to, label, end }))
 
 export default function AdminLayout() {
   const [user, setUser] = useState(null)
@@ -98,6 +91,29 @@ export default function AdminLayout() {
         </form>
         {authError ? <p className="text-rose-200">{authError}</p> : null}
         <p className="text-sm text-slate-400">Use your admin credentials to continue.</p>
+      </section>
+    )
+  }
+
+  if (String(user?.role || '').toLowerCase() !== 'admin') {
+    return (
+      <section className="mx-auto max-w-lg space-y-4 glass-card p-6 md:p-8">
+        <h1 className="text-2xl font-semibold text-white">Admin Access Required</h1>
+        <p className="text-sm text-slate-300">
+          Your account is signed in but does not have admin permissions for this dashboard.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <Link to="/" className="btn-outline">
+            Back to site
+          </Link>
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="rounded-full border border-rose-300/40 bg-rose-500/20 px-3 py-1.5 text-sm text-rose-100 hover:bg-rose-500/30"
+          >
+            Logout
+          </button>
+        </div>
       </section>
     )
   }
