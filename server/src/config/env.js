@@ -7,15 +7,22 @@ function normalizeOrigin(rawValue) {
   return value.replace(/\/+$/, '')
 }
 
+function uniqueOrigins(origins) {
+  return [...new Set(origins.map((s) => normalizeOrigin(s)).filter(Boolean))]
+}
+
 function parseCorsOrigin() {
   const raw = process.env.CORS_ORIGIN
   if (raw == null || raw === '') {
     return true
   }
-  const list = raw
-    .split(',')
-    .map((s) => normalizeOrigin(s))
-    .filter(Boolean)
+  const envList = raw.split(',')
+  const productionDefaults = [
+    'https://prinstineacademy.org',
+    'https://www.prinstineacademy.org',
+    'https://prinstineacademy.vercel.app',
+  ]
+  const list = uniqueOrigins([...envList, ...productionDefaults])
   if (list.length === 0) {
     return true
   }

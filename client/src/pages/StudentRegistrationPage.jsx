@@ -98,9 +98,12 @@ export default function StudentRegistrationPage() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="glass-card grid gap-4 p-5 md:p-6 lg:grid-cols-2">
+      <form
+        onSubmit={handleSubmit}
+        className="glass-card mx-auto grid w-full max-w-5xl gap-4 p-5 md:p-6 lg:grid-cols-2"
+      >
         <label className="grid gap-1.5 text-sm">
-          <span className="text-blue-100">Full Name</span>
+          <span className="font-medium text-blue-100">Full Name</span>
           <input
             value={form.fullName}
             onChange={(e) => updateField('fullName', e.target.value)}
@@ -109,7 +112,7 @@ export default function StudentRegistrationPage() {
           />
         </label>
         <label className="grid gap-1.5 text-sm">
-          <span className="text-blue-100">Email Address</span>
+          <span className="font-medium text-blue-100">Email Address</span>
           <input
             type="email"
             value={form.email}
@@ -119,7 +122,7 @@ export default function StudentRegistrationPage() {
           />
         </label>
         <label className="grid gap-1.5 text-sm">
-          <span className="text-blue-100">Phone Number</span>
+          <span className="font-medium text-blue-100">Phone Number</span>
           <input
             value={form.phone}
             onChange={(e) => updateField('phone', e.target.value)}
@@ -128,7 +131,7 @@ export default function StudentRegistrationPage() {
           />
         </label>
         <label className="grid gap-1.5 text-sm">
-          <span className="text-blue-100">Course Selection</span>
+          <span className="font-medium text-blue-100">Course Selection</span>
           <select
             value={form.courseId}
             onChange={(e) => updateField('courseId', e.target.value)}
@@ -143,7 +146,7 @@ export default function StudentRegistrationPage() {
           </select>
         </label>
         <label className="grid gap-1.5 text-sm">
-          <span className="text-blue-100">Preferred Learning Mode</span>
+          <span className="font-medium text-blue-100">Preferred Learning Mode</span>
           <select
             value={form.learningMode}
             onChange={(e) => updateField('learningMode', e.target.value)}
@@ -154,7 +157,7 @@ export default function StudentRegistrationPage() {
           </select>
         </label>
         <label className="grid gap-1.5 text-sm">
-          <span className="text-blue-100">Highest Education</span>
+          <span className="font-medium text-blue-100">Highest Education</span>
           <input
             value={form.highestEducation}
             onChange={(e) => updateField('highestEducation', e.target.value)}
@@ -162,7 +165,7 @@ export default function StudentRegistrationPage() {
           />
         </label>
         <label className="grid gap-1.5 text-sm lg:col-span-2">
-          <span className="text-blue-100">Address</span>
+          <span className="font-medium text-blue-100">Address</span>
           <input
             value={form.address}
             onChange={(e) => updateField('address', e.target.value)}
@@ -170,7 +173,7 @@ export default function StudentRegistrationPage() {
           />
         </label>
         <label className="grid gap-1.5 text-sm lg:col-span-2">
-          <span className="text-blue-100">Additional Notes</span>
+          <span className="font-medium text-blue-100">Additional Notes</span>
           <textarea
             rows={4}
             value={form.notes}
@@ -178,7 +181,7 @@ export default function StudentRegistrationPage() {
             placeholder="Any extra details you want to share"
           />
         </label>
-        <div className="flex flex-wrap gap-3 lg:col-span-2">
+        <div className="flex flex-wrap items-center gap-3 border-t border-white/10 pt-2 lg:col-span-2">
           <button type="submit" disabled={submitting} className="btn-primary">
             {submitting ? 'Submitting...' : 'Submit Registration'}
           </button>
