@@ -16,8 +16,12 @@ const navItems = [
 
 export default function AdminLayout() {
   const [user, setUser] = useState(null)
-  const [email, setEmail] = useState('admin@prinstineacademy.org')
-  const [password, setPassword] = useState('Admin@PrinstineAcademy2026')
+  const [email, setEmail] = useState(
+    import.meta.env.DEV ? 'admin@prinstineacademy.org' : '',
+  )
+  const [password, setPassword] = useState(
+    import.meta.env.DEV ? 'Admin@PrinstineAcademy2026' : '',
+  )
   const [authError, setAuthError] = useState('')
   const [loading, setLoading] = useState(true)
 

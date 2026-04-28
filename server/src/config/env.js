@@ -20,11 +20,13 @@ function parseCorsOrigin() {
 }
 
 const port = Number.parseInt(process.env.PORT ?? '3000', 10)
+const nodeEnv = process.env.NODE_ENV ?? 'development'
 
 export const env = {
   port: Number.isFinite(port) ? port : 3000,
-  nodeEnv: process.env.NODE_ENV ?? 'development',
-  isDev: (process.env.NODE_ENV ?? 'development') === 'development',
+  nodeEnv,
+  isDev: nodeEnv === 'development',
+  isProduction: nodeEnv === 'production',
   /** `true` = reflect request origin, `string` or `string[]` = allowed origins (cors) */
   corsOrigin: parseCorsOrigin(),
   databaseUrl: process.env.DATABASE_URL || null,

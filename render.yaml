@@ -1,0 +1,35 @@
+# Render Blueprint — https://render.com/docs/infrastructure-as-code
+# Push this repo and create a Blueprint, or manually create a Web Service with rootDir server.
+#
+# After deploy:
+# - Set CORS_ORIGIN to your Vercel URL(s), comma-separated (required; server will not start without it).
+# - Set ADMIN_EMAIL and ADMIN_PASSWORD so the first admin account is created (no insecure defaults in production).
+
+databases:
+  - name: prinstine-db
+    plan: free
+
+services:
+  - type: web
+    name: prinstine-academy-api
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: prinstine-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGIN
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false

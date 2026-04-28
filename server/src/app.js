@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import helmet from 'helmet'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import { env } from './config/env.js'
@@ -13,6 +14,14 @@ const serverRoot = join(__dirname, '..')
 export function createApp() {
   const app = express()
   app.disable('x-powered-by')
+  if (env.isProduction) {
+    app.set('trust proxy', 1)
+  }
+  app.use(
+    helmet({
+      crossOriginResourcePolicy: { policy: 'cross-origin' },
+    }),
+  )
   app.use(
     cors({
       origin: env.corsOrigin,

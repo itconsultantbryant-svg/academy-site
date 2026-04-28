@@ -3,7 +3,7 @@
 
 PRAGMA foreign_keys = ON;
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   email TEXT NOT NULL,
   password TEXT NOT NULL,
@@ -12,13 +12,13 @@ CREATE TABLE users (
   UNIQUE (email)
 );
 
-CREATE TABLE categories (
+CREATE TABLE IF NOT EXISTS categories (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   UNIQUE (name)
 );
 
-CREATE TABLE courses (
+CREATE TABLE IF NOT EXISTS courses (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   title TEXT NOT NULL,
   description TEXT,
@@ -30,9 +30,9 @@ CREATE TABLE courses (
   FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-CREATE INDEX idx_courses_category_id ON courses (category_id);
+CREATE INDEX IF NOT EXISTS idx_courses_category_id ON courses (category_id);
 
-CREATE TABLE posts (
+CREATE TABLE IF NOT EXISTS posts (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   title TEXT NOT NULL,
   content TEXT,
@@ -41,9 +41,9 @@ CREATE TABLE posts (
   FOREIGN KEY (author_id) REFERENCES users (id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-CREATE INDEX idx_posts_author_id ON posts (author_id);
+CREATE INDEX IF NOT EXISTS idx_posts_author_id ON posts (author_id);
 
-CREATE TABLE certificates (
+CREATE TABLE IF NOT EXISTS certificates (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   student_name TEXT NOT NULL,
   course_id INTEGER NOT NULL,
@@ -55,17 +55,17 @@ CREATE TABLE certificates (
   UNIQUE (certificate_id)
 );
 
-CREATE INDEX idx_certificates_course_id ON certificates (course_id);
-CREATE INDEX idx_certificates_status ON certificates (status);
+CREATE INDEX IF NOT EXISTS idx_certificates_course_id ON certificates (course_id);
+CREATE INDEX IF NOT EXISTS idx_certificates_status ON certificates (status);
 
-CREATE TABLE site_content (
+CREATE TABLE IF NOT EXISTS site_content (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   section_name TEXT NOT NULL,
   content TEXT NOT NULL DEFAULT ('{}'),
   UNIQUE (section_name)
 );
 
-CREATE TABLE subscribers (
+CREATE TABLE IF NOT EXISTS subscribers (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   email TEXT NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE subscribers (
   UNIQUE (email)
 );
 
-CREATE TABLE registrations (
+CREATE TABLE IF NOT EXISTS registrations (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   full_name TEXT NOT NULL,
   email TEXT NOT NULL,
@@ -87,5 +87,5 @@ CREATE TABLE registrations (
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
-CREATE INDEX idx_registrations_course_title ON registrations (course_title);
-CREATE INDEX idx_registrations_created_at ON registrations (created_at);
+CREATE INDEX IF NOT EXISTS idx_registrations_course_title ON registrations (course_title);
+CREATE INDEX IF NOT EXISTS idx_registrations_created_at ON registrations (created_at);

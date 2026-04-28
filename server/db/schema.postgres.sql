@@ -1,6 +1,6 @@
 -- PostgreSQL: npm run db:migrate
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
   id BIGSERIAL PRIMARY KEY,
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE categories (
   CONSTRAINT uq_categories_name UNIQUE (name)
 );
 
-CREATE TABLE courses (
+CREATE TABLE IF NOT EXISTS courses (
   id BIGSERIAL PRIMARY KEY,
   title VARCHAR(512) NOT NULL,
   description TEXT,
@@ -26,9 +26,9 @@ CREATE TABLE courses (
   CONSTRAINT ck_courses_price_nonneg CHECK (price >= 0)
 );
 
-CREATE INDEX idx_courses_category_id ON courses (category_id);
+CREATE INDEX IF NOT EXISTS idx_courses_category_id ON courses (category_id);
 
-CREATE TABLE posts (
+CREATE TABLE IF NOT EXISTS posts (
   id BIGSERIAL PRIMARY KEY,
   title VARCHAR(512) NOT NULL,
   content TEXT,
@@ -36,9 +36,9 @@ CREATE TABLE posts (
   author_id BIGINT NOT NULL REFERENCES users (id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-CREATE INDEX idx_posts_author_id ON posts (author_id);
+CREATE INDEX IF NOT EXISTS idx_posts_author_id ON posts (author_id);
 
-CREATE TABLE certificates (
+CREATE TABLE IF NOT EXISTS certificates (
   id BIGSERIAL PRIMARY KEY,
   student_name VARCHAR(255) NOT NULL,
   course_id BIGINT NOT NULL REFERENCES courses (id) ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -49,17 +49,17 @@ CREATE TABLE certificates (
   CONSTRAINT ck_certificates_status CHECK (status IN ('pending', 'issued', 'revoked'))
 );
 
-CREATE INDEX idx_certificates_course_id ON certificates (course_id);
-CREATE INDEX idx_certificates_status ON certificates (status);
+CREATE INDEX IF NOT EXISTS idx_certificates_course_id ON certificates (course_id);
+CREATE INDEX IF NOT EXISTS idx_certificates_status ON certificates (status);
 
-CREATE TABLE site_content (
+CREATE TABLE IF NOT EXISTS site_content (
   id BIGSERIAL PRIMARY KEY,
   section_name VARCHAR(128) NOT NULL,
   content JSONB NOT NULL DEFAULT '{}'::jsonb,
   CONSTRAINT uq_site_content_section UNIQUE (section_name)
 );
 
-CREATE TABLE subscribers (
+CREATE TABLE IF NOT EXISTS subscribers (
   id BIGSERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE subscribers (
   CONSTRAINT uq_subscribers_email UNIQUE (email)
 );
 
-CREATE TABLE registrations (
+CREATE TABLE IF NOT EXISTS registrations (
   id BIGSERIAL PRIMARY KEY,
   full_name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
@@ -81,5 +81,5 @@ CREATE TABLE registrations (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE INDEX idx_registrations_course_title ON registrations (course_title);
-CREATE INDEX idx_registrations_created_at ON registrations (created_at);
+CREATE INDEX IF NOT EXISTS idx_registrations_course_title ON registrations (course_title);
+CREATE INDEX IF NOT EXISTS idx_registrations_created_at ON registrations (created_at);
