@@ -1,10 +1,16 @@
 import axios from 'axios'
 
-const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+const configuredBase = String(import.meta.env.VITE_API_URL || '').trim()
+const normalizedConfiguredBase = configuredBase.replace(/\/+$/, '')
+const fallbackBase =
+  import.meta.env.PROD
+    ? 'https://prinstine-academy-api.onrender.com'
+    : 'http://localhost:3000'
+const baseURL = normalizedConfiguredBase || fallbackBase
 
 export const api = axios.create({
   baseURL,
-  withCredentials: true,
+  withCredentials: false,
   headers: {
     'Content-Type': 'application/json',
   },

@@ -291,7 +291,7 @@ export default function GlobalLayout() {
               <img
                 src={logoImage}
                 alt="Prinstine Academy"
-                className="h-10 w-auto"
+                className="h-10 w-auto rounded-md"
                 onError={() => setLogoMissing(true)}
               />
             ) : (
@@ -475,7 +475,7 @@ export default function GlobalLayout() {
               <img
                 src={logoImage}
                 alt="Prinstine Academy"
-                className="h-10 w-auto"
+                className="h-10 w-auto rounded-md"
                 onError={() => setLogoMissing(true)}
               />
             ) : (

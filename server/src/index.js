@@ -7,18 +7,15 @@ import { connectDatabase, getDialect } from '../db/connection.js'
 import { User } from '../db/orm.js'
 
 async function ensureAdminAccess() {
-  const isProd = env.isProduction
-  const emailRaw =
-    process.env.ADMIN_EMAIL || (isProd ? '' : 'admin@prinstineacademy.org')
-  const password = process.env.ADMIN_PASSWORD || (isProd ? '' : 'Admin@PrinstineAcademy2026')
+  const defaultEmail = 'admin@prinstineacademy.org'
+  const defaultPassword = 'Admin@PrinstineAcademy2026'
+  const emailRaw = process.env.ADMIN_EMAIL || defaultEmail
+  const password = process.env.ADMIN_PASSWORD || defaultPassword
   const email = emailRaw.trim().toLowerCase()
-  if (!email || !password) {
-    if (isProd) {
-      console.warn(
-        '[boot] Skipping admin creation: set ADMIN_EMAIL and ADMIN_PASSWORD to provision the first admin user',
-      )
-    }
-    return
+  if (env.isProduction && (!process.env.ADMIN_EMAIL || !process.env.ADMIN_PASSWORD)) {
+    console.warn(
+      '[boot] ADMIN_EMAIL / ADMIN_PASSWORD not fully set; using default admin credentials. Set both env vars to override.',
+    )
   }
   const existing = await User.findByEmail(email)
   if (existing) return

@@ -1,6 +1,12 @@
 /**
  * Centralized environment. Load `import 'dotenv/config'` in `index.js` before other local imports.
  */
+function normalizeOrigin(rawValue) {
+  const value = String(rawValue ?? '').trim()
+  if (!value) return ''
+  return value.replace(/\/+$/, '')
+}
+
 function parseCorsOrigin() {
   const raw = process.env.CORS_ORIGIN
   if (raw == null || raw === '') {
@@ -8,7 +14,7 @@ function parseCorsOrigin() {
   }
   const list = raw
     .split(',')
-    .map((s) => s.trim())
+    .map((s) => normalizeOrigin(s))
     .filter(Boolean)
   if (list.length === 0) {
     return true
