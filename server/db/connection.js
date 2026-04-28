@@ -2,13 +2,8 @@ import { mkdirSync, existsSync, readFileSync } from 'fs'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import pg from 'pg'
-import sqlite3mod from 'sqlite3'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-
-const Database = sqlite3mod.Database
-const OPEN_READWRITE = sqlite3mod.OPEN_READWRITE
-const OPEN_CREATE = sqlite3mod.OPEN_CREATE
 
 let pool
 let sqliteDb
@@ -130,6 +125,10 @@ export async function connectDatabase(options = {}) {
   const serverRoot = join(__dirname, '..')
   const defaultSqlite = join(serverRoot, 'data', 'app.db')
   const sqlitePath = options.sqlitePath ?? process.env.SQLITE_PATH ?? defaultSqlite
+  const sqlite3mod = await import('sqlite3')
+  const Database = sqlite3mod.default.Database
+  const OPEN_READWRITE = sqlite3mod.default.OPEN_READWRITE
+  const OPEN_CREATE = sqlite3mod.default.OPEN_CREATE
   const dir = dirname(sqlitePath)
   if (!existsSync(dir)) {
     mkdirSync(dir, { recursive: true })
