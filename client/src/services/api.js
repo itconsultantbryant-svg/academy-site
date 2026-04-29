@@ -2,16 +2,21 @@ import axios from 'axios'
 
 const configuredBase = String(import.meta.env.VITE_API_URL || '').trim()
 const normalizedConfiguredBase = configuredBase.replace(/\/+$/, '')
+
+/**
+ * API base URL:
+ * - Leave `VITE_API_URL` unset to call `/api` on the **same origin** as the site (recommended).
+ *   Production: configure your host to reverse-proxy `/api` → backend (see `vercel.json`).
+ * - Set `VITE_API_URL` only if you cannot proxy (e.g. static host) — then use the full API origin.
+ */
+const baseURL = normalizedConfiguredBase || ''
+
+// Short default for read-heavy calls; mutations (registration, subscribe) use per-request timeouts.
 const configuredTimeout = Number(import.meta.env.VITE_API_TIMEOUT_MS)
 const requestTimeoutMs =
   Number.isFinite(configuredTimeout) && configuredTimeout > 0
     ? configuredTimeout
     : 1000
-const fallbackBase =
-  import.meta.env.PROD
-    ? 'https://prinstine-academy-api.onrender.com'
-    : 'http://localhost:3000'
-const baseURL = normalizedConfiguredBase || fallbackBase
 
 export const api = axios.create({
   baseURL,

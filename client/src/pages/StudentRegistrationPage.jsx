@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { localCourses } from '../data/courseCatalog'
 import usePageMeta from '../hooks/usePageMeta'
+import { getRegistrationErrorMessage } from '../lib/registrationErrors'
 import { submitRegistration } from '../services/registrationService'
 
 export default function StudentRegistrationPage() {
@@ -84,7 +85,7 @@ export default function StudentRegistrationPage() {
         notes: '',
       }))
     } catch (e) {
-      setError(e?.response?.data?.error?.message || 'Registration failed. Please try again.')
+      setError(getRegistrationErrorMessage(e))
     } finally {
       setSubmitting(false)
     }
@@ -191,12 +192,18 @@ export default function StudentRegistrationPage() {
         </label>
         <div className="flex flex-wrap items-center gap-3 border-t border-white/10 pt-2 lg:col-span-2">
           <button type="submit" disabled={submitting} className="btn-primary">
-            {submitting ? 'Submitting...' : 'Submit Registration'}
+            {submitting ? 'Submitting…' : 'Submit Registration'}
           </button>
           <Link to="/courses" className="btn-outline">
             Back to Courses
           </Link>
         </div>
+        {submitting ? (
+          <p className="text-xs text-blue-200/80 lg:col-span-2">
+            Sending your registration. On some mobile networks this can take up to a minute — please
+            keep this page open.
+          </p>
+        ) : null}
         {error ? <p className="text-sm text-rose-200 lg:col-span-2">{error}</p> : null}
         {success ? <p className="text-sm text-emerald-200 lg:col-span-2">{success}</p> : null}
       </form>

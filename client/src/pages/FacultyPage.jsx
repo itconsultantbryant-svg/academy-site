@@ -22,7 +22,12 @@ const FACULTY = [
   { name: 'Mr Alfred Morris', qualifications: 'Solar Engineer' },
   { name: 'Mr Edmond K Benicks', qualifications: 'B.Sc., MBA Candidate, DIP-Tech' },
   { name: 'Mr Samson Bryant', qualifications: 'DIP-ICT, Full-Stack Developer, Data Engineer' },
-  { name: 'Mr Adebayo Akinloye', qualifications: 'Assc.CIPD, MCIPM, FIMC, CMC' },
+  { name: 'Mr Adebayo Akinloye', qualifications: 'Assc.CIPD' },
+  { name: 'Mrs. Yolaine Kata Waka Metzger', qualifications: 'MPH' },
+  { name: 'Mr. Leonard Metzger', qualifications: 'M.Sc- Information Technology' },
+  { name: 'Booker T. Harris', qualifications: 'CPA' },
+  { name: 'Joy Odell Nagbe', qualifications: 'MSc' },
+  { name: 'Precious Joy. Teeweh', qualifications: 'BSc, MA candidate' },
 ]
 
 export default function FacultyPage() {

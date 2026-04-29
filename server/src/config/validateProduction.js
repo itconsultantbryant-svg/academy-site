@@ -19,7 +19,7 @@ export function validateProductionBoot() {
   const cors = (process.env.CORS_ORIGIN ?? '').trim()
   if (!cors) {
     throw new Error(
-      'Production requires CORS_ORIGIN (comma-separated frontend origins, e.g. https://your-app.vercel.app)',
+      'Production requires CORS_ORIGIN (comma-separated frontend origins, e.g. https://prinstineacademy.org,https://www.prinstineacademy.org)',
     )
   }
 }
