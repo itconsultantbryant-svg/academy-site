@@ -6,7 +6,7 @@ const configuredTimeout = Number(import.meta.env.VITE_API_TIMEOUT_MS)
 const requestTimeoutMs =
   Number.isFinite(configuredTimeout) && configuredTimeout > 0
     ? configuredTimeout
-    : 12000
+    : 1000
 const fallbackBase =
   import.meta.env.PROD
     ? 'https://prinstine-academy-api.onrender.com'
