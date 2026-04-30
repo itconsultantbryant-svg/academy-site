@@ -18,6 +18,14 @@ const requestTimeoutMs =
     ? configuredTimeout
     : 1000
 
+const authenticatedTimeoutConfigured = Number(
+  import.meta.env.VITE_AUTHENTICATED_API_TIMEOUT_MS
+)
+const authenticatedTimeoutMs =
+  Number.isFinite(authenticatedTimeoutConfigured) && authenticatedTimeoutConfigured > 0
+    ? authenticatedTimeoutConfigured
+    : 30000
+
 export const api = axios.create({
   baseURL,
   timeout: requestTimeoutMs,
@@ -31,6 +39,10 @@ api.interceptors.request.use((config) => {
   const token = localStorage.getItem('auth_token')
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
+    // Admin dashboard loads many parallel reads; keep short default for anonymous traffic only.
+    const explicit = config.timeout
+    const effective = Number.isFinite(explicit) ? explicit : requestTimeoutMs
+    config.timeout = Math.max(effective, authenticatedTimeoutMs)
   }
   return config
 })

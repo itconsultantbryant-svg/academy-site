@@ -60,7 +60,15 @@ export default function DashboardOverviewPage() {
         setError('')
       } catch (e) {
         if (!active) return
-        setError(e?.response?.data?.error?.message || 'Failed to load dashboard analytics')
+        const serverMsg = e?.response?.data?.error?.message
+        const hint =
+          serverMsg ||
+          (e?.code === 'ECONNABORTED'
+            ? 'Request timed out. Your connection or the API may be slow — refresh or try again.'
+            : e?.message === 'Network Error'
+              ? 'Could not reach the server. Check your connection and API proxy (same-origin /api).'
+              : 'Failed to load dashboard analytics')
+        setError(hint)
       } finally {
         if (active) setLoading(false)
       }
