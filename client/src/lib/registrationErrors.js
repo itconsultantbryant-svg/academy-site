@@ -6,7 +6,7 @@ export function getRegistrationErrorMessage(error) {
   if (typeof serverMsg === 'string' && serverMsg.trim()) return serverMsg
 
   if (error?.code === 'ECONNABORTED') {
-    return 'Connection was too slow and timed out. Please try again — if it keeps failing, switch network or try Wi‑Fi.'
+    return 'The connection was too slow before the server answered (common on some mobile networks). Please tap Submit again and wait — or use Wi‑Fi. Your details are still in the form.'
   }
   if (error?.message === 'Network Error' || (!error?.response && error?.request)) {
     return 'Could not reach our server. Check your signal or Wi‑Fi, then tap Submit again.'

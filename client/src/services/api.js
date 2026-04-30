@@ -35,7 +35,28 @@ export const api = axios.create({
   },
 })
 
+function minPublicMutationTimeoutMs(config) {
+  const method = (config.method || 'get').toLowerCase()
+  if (method !== 'post') return null
+  const path = String(config.url || '').split('?')[0]
+  if (/\/api\/registrations\/?$/.test(path)) {
+    const n = Number(import.meta.env.VITE_REGISTRATION_API_TIMEOUT_MS)
+    return Number.isFinite(n) && n > 0 ? n : 120000
+  }
+  if (/\/api\/subscribers\/?$/.test(path)) {
+    const n = Number(import.meta.env.VITE_SUBSCRIBE_API_TIMEOUT_MS)
+    return Number.isFinite(n) && n > 0 ? n : 90000
+  }
+  return null
+}
+
 api.interceptors.request.use((config) => {
+  const pubMin = minPublicMutationTimeoutMs(config)
+  if (pubMin != null) {
+    const cur = Number(config.timeout)
+    config.timeout = Math.max(Number.isFinite(cur) ? cur : 0, pubMin)
+  }
+
   const token = localStorage.getItem('auth_token')
   if (token) {
     config.headers.Authorization = `Bearer ${token}`

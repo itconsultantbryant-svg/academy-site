@@ -200,8 +200,8 @@ export default function StudentRegistrationPage() {
         </div>
         {submitting ? (
           <p className="text-xs text-blue-200/80 lg:col-span-2">
-            Sending your registration. On some mobile networks this can take up to a minute — please
-            keep this page open.
+            Sending your registration. On slower connections this may take a couple of minutes; please
+            keep this page open until you see a success or error message.
           </p>
         ) : null}
         {error ? <p className="text-sm text-rose-200 lg:col-span-2">{error}</p> : null}
