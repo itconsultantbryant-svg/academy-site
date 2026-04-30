@@ -6,8 +6,8 @@ import PendingRegistrationSync from './components/PendingRegistrationSync'
 import { PageSkeleton } from './components/Skeletons'
 import AdminLayout from './admin/AdminLayout'
 import { adminRoutes } from './admin/adminRoutes'
+import HomePage from './pages/HomePage'
 
-const HomePage = lazy(() => import('./pages/HomePage'))
 const CoursesPage = lazy(() => import('./pages/CoursesPage'))
 const CourseDetailsPage = lazy(() => import('./pages/CourseDetailsPage'))
 const BlogPage = lazy(() => import('./pages/BlogPage'))

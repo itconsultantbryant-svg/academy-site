@@ -5,8 +5,6 @@ import { getSectionContent } from '../services/contentService'
 import { getCourses } from '../services/courseService'
 import { getPosts } from '../services/postService'
 import Reveal from '../components/Reveal'
-import { PageSkeleton } from '../components/Skeletons'
-import ErrorState from '../components/ErrorState'
 import usePageMeta from '../hooks/usePageMeta'
 import useStructuredData from '../hooks/useStructuredData'
 import logoImage from '../assets/logo.png'
@@ -90,8 +88,6 @@ export default function HomePage() {
       'Learn smarter, achieve faster with Prinstine Academy through practical courses and recognized certifications.',
   })
 
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
   const [sections, setSections] = useState({})
   const [courses, setCourses] = useState([])
   const [posts, setPosts] = useState([])
@@ -256,9 +252,6 @@ export default function HomePage() {
     }, 4200)
     return () => window.clearInterval(timer)
   }, [featuredCourses.length])
-
-  if (loading) return <PageSkeleton />
-  if (error) return <ErrorState title="Homepage unavailable" message={error} />
 
   return (
     <motion.section
