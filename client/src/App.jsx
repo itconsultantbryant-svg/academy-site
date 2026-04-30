@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Suspense, lazy } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import GlobalLayout from './components/GlobalLayout'
+import PendingRegistrationSync from './components/PendingRegistrationSync'
 import { PageSkeleton } from './components/Skeletons'
 import AdminLayout from './admin/AdminLayout'
 import { adminRoutes } from './admin/adminRoutes'
@@ -47,6 +48,7 @@ export default function App() {
 
   return (
     <AnimatePresence mode="wait">
+      <PendingRegistrationSync />
       <motion.div
         key={location.pathname}
         initial={{ opacity: 0, y: 6 }}

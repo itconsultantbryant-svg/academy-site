@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { localCourses } from '../data/courseCatalog'
 import usePageMeta from '../hooks/usePageMeta'
-import { getRegistrationErrorMessage } from '../lib/registrationErrors'
+import { enqueuePendingRegistration } from '../lib/pendingRegistrationQueue'
 import { submitRegistration } from '../services/registrationService'
 
 export default function StudentRegistrationPage() {
@@ -43,9 +43,10 @@ export default function StudentRegistrationPage() {
     address: '',
     notes: '',
   })
-  const [submitting, setSubmitting] = useState(false)
+  const [submitCooldown, setSubmitCooldown] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const submitLockRef = useRef(false)
 
   function updateField(key, value) {
     setForm((prev) => ({ ...prev, [key]: value }))
@@ -53,7 +54,7 @@ export default function StudentRegistrationPage() {
 
   const selectedCourse = courses.find((item) => item.id === form.courseId)
 
-  async function handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault()
     setError('')
     setSuccess('')
@@ -61,34 +62,49 @@ export default function StudentRegistrationPage() {
       setError('Full name, email, phone, and selected course are required.')
       return
     }
-    try {
-      setSubmitting(true)
-      await submitRegistration({
-        fullName: form.fullName.trim(),
-        email: form.email.trim(),
-        phone: form.phone.trim(),
-        courseId: form.courseId,
-        courseTitle: selectedCourse?.title || '',
-        learningMode: form.learningMode,
-        highestEducation: form.highestEducation.trim(),
-        address: form.address.trim(),
-        notes: form.notes.trim(),
-      })
-      setSuccess('Registration submitted successfully. Our team will contact you shortly.')
-      setForm((prev) => ({
-        ...prev,
-        fullName: '',
-        email: '',
-        phone: '',
-        highestEducation: '',
-        address: '',
-        notes: '',
-      }))
-    } catch (e) {
-      setError(getRegistrationErrorMessage(e))
-    } finally {
-      setSubmitting(false)
+    if (submitLockRef.current || submitCooldown) return
+
+    const payload = {
+      fullName: form.fullName.trim(),
+      email: form.email.trim(),
+      phone: form.phone.trim(),
+      courseId: form.courseId,
+      courseTitle: selectedCourse?.title || '',
+      learningMode: form.learningMode,
+      highestEducation: form.highestEducation.trim(),
+      address: form.address.trim(),
+      notes: form.notes.trim(),
     }
+
+    submitLockRef.current = true
+    setSubmitCooldown(true)
+    setSuccess(
+      'Thank you — your registration is received. Our admissions team will contact you using the details you provided.'
+    )
+    setForm((prev) => ({
+      ...prev,
+      fullName: '',
+      email: '',
+      phone: '',
+      highestEducation: '',
+      address: '',
+      notes: '',
+    }))
+
+    window.setTimeout(() => {
+      submitLockRef.current = false
+    }, 1000)
+    window.setTimeout(() => {
+      setSubmitCooldown(false)
+    }, 1200)
+
+    void (async () => {
+      try {
+        await submitRegistration(payload)
+      } catch {
+        enqueuePendingRegistration(payload)
+      }
+    })()
   }
 
   return (
@@ -191,19 +207,20 @@ export default function StudentRegistrationPage() {
           />
         </label>
         <div className="flex flex-wrap items-center gap-3 border-t border-white/10 pt-2 lg:col-span-2">
-          <button type="submit" disabled={submitting} className="btn-primary">
-            {submitting ? 'Submitting…' : 'Submit Registration'}
+          <button type="submit" disabled={submitCooldown} className="btn-primary">
+            Submit Registration
           </button>
           <Link to="/courses" className="btn-outline">
             Back to Courses
           </Link>
         </div>
-        {submitting ? (
-          <p className="text-xs text-blue-200/80 lg:col-span-2">
-            Sending your registration. On slower connections this may take a couple of minutes; please
-            keep this page open until you see a success or error message.
-          </p>
-        ) : null}
+        <p className="text-xs leading-relaxed text-blue-200/75 lg:col-span-2">
+          Prefer to talk through options first? Use{' '}
+          <Link to="/contact" className="font-medium text-cyan-200 underline-offset-2 hover:underline">
+            Contact
+          </Link>{' '}
+          — we respond to every inquiry.
+        </p>
         {error ? <p className="text-sm text-rose-200 lg:col-span-2">{error}</p> : null}
         {success ? <p className="text-sm text-emerald-200 lg:col-span-2">{success}</p> : null}
       </form>
