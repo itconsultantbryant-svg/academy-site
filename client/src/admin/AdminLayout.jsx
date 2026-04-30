@@ -54,10 +54,21 @@ export default function AdminLayout() {
     event.preventDefault()
     setAuthError('')
     try {
-      await adminLogin(email, password)
-      await refreshSession()
+      const data = await adminLogin(email, password)
+      // Prefer user from login response so we do not depend on a second request
+      // (global API timeout was aborting /auth/me on slow networks).
+      const nextUser = data?.user ?? (await getSession())
+      setUser(nextUser ?? null)
+      setAuthError('')
     } catch (e) {
-      setAuthError(e?.response?.data?.error?.message || 'Login failed')
+      const msg =
+        e?.response?.data?.error?.message ||
+        (e?.code === 'ECONNABORTED'
+          ? 'Request timed out. Check your connection and try again.'
+          : e?.message === 'Network Error'
+            ? 'Could not reach the server. Check your connection.'
+            : 'Login failed')
+      setAuthError(msg)
     }
   }
 
