@@ -25,6 +25,7 @@ const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'))
 const TermsAndConditionsPage = lazy(() => import('./pages/TermsAndConditionsPage'))
 const OnlineCoursesLinkPage = lazy(() => import('./pages/OnlineCoursesLinkPage'))
 const HandbookPage = lazy(() => import('./pages/HandbookPage'))
+const NewsletterPage = lazy(() => import('./pages/NewsletterPage'))
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 const DashboardOverviewPage = lazy(() =>
   import('./admin/pages/DashboardOverviewPage')
@@ -76,6 +77,7 @@ export default function App() {
               <Route path="/online-courses-link" element={<OnlineCoursesLinkPage />} />
               <Route path="/handbook" element={<HandbookPage />} />
               <Route path="/register" element={<StudentRegistrationPage />} />
+              <Route path="/newsletter" element={<NewsletterPage />} />
               <Route
                 path="/verify-certificate"
                 element={<CertificateVerificationPage />}

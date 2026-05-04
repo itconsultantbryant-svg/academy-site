@@ -2,7 +2,6 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import logoImage from '../assets/logo.png'
-import SubscribePopup from './SubscribePopup'
 import { getBackgroundsForPath } from '../data/pageBackgrounds'
 
 const navClass = ({ isActive }, theme) =>
@@ -462,8 +461,6 @@ export default function GlobalLayout() {
           <span aria-hidden="true">{'->'}</span>
         </Link>
       ) : null}
-      {!location.pathname.startsWith('/admin') ? <SubscribePopup /> : null}
-
       <footer
         className={[
           'relative z-10 border-t transition-colors duration-300',
@@ -544,6 +541,22 @@ export default function GlobalLayout() {
             <p>PA Rib House Junction, Airfield Sinkor, Monrovia-Liberia</p>
           </div>
         </div>
+        {!location.pathname.startsWith('/admin') ? (
+          <div className="flex justify-center border-t border-blue-100/10 px-4 py-6 md:px-6">
+            <Link
+              to="/newsletter"
+              className={[
+                'inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition duration-200 hover:-translate-y-0.5',
+                theme === 'light'
+                  ? 'border border-blue-900/20 bg-blue-600 text-white hover:bg-blue-700'
+                  : 'border border-amber-300/50 bg-amber-400 text-slate-900 hover:bg-amber-300 shadow-[0_8px_24px_rgba(0,0,0,0.2)]',
+              ].join(' ')}
+            >
+              Subscribe to our Newsletter
+              <span aria-hidden="true">{'->'}</span>
+            </Link>
+          </div>
+        ) : null}
         <div className="border-t border-blue-100/10">
           <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-2 px-4 py-4 text-center text-sm md:flex-row md:px-6">
             <p>Powered by Prinstine Group of Companies</p>
