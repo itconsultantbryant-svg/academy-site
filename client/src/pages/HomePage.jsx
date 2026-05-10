@@ -39,18 +39,21 @@ const OFFERINGS = [
 
 const PROGRAM_TYPES = [
   {
+    imageQuery: 'Certificate Programs',
     title: 'Certificate Programs (12 Weeks)',
     duration: '12 Weeks',
     text:
       'Our Certificate Programs are intensive, skills-focused training courses designed to equip participants with practical knowledge and industry-relevant competencies within a 12-week period. These programs combine structured learning, hands-on experience, and professional guidance to help individuals build expertise and enhance career opportunities.',
   },
   {
+    imageQuery: 'Organization Training Programs',
     title: 'Organization Training Programs (Flexible Duration)',
     duration: 'Flexible Duration',
     text:
       'Our Organization Training Programs are customized learning solutions tailored to meet the specific needs and goals of businesses, institutions, and teams. Program duration is flexible based on organizational requirements, ensuring targeted skill development, improved performance, and measurable impact within the workplace.',
   },
   {
+    imageQuery: 'Acceleration Programs',
     title: 'Acceleration Programs (Flexible Duration)',
     duration: 'Flexible Duration',
     text:
@@ -93,6 +96,7 @@ export default function HomePage() {
   const [posts, setPosts] = useState([])
   const [activeSlide, setActiveSlide] = useState(0)
   const [programSlide, setProgramSlide] = useState(0)
+  const [flippedPrograms, setFlippedPrograms] = useState({})
   const coursesSliderRef = useRef(null)
   const infoSheetDownloadHref = informationSheetPdf
 
@@ -238,6 +242,10 @@ export default function HomePage() {
     el.scrollBy({ left: direction * amount, behavior: 'smooth' })
   }
 
+  function toggleProgramCard(index) {
+    setFlippedPrograms((prev) => ({ ...prev, [index]: !prev[index] }))
+  }
+
   useEffect(() => {
     const el = coursesSliderRef.current
     if (!el || featuredCourses.length <= 1) return
@@ -371,13 +379,54 @@ export default function HomePage() {
             key={item.title}
             delay={idx * 0.05}
             interactive
-            className="rounded-2xl border border-blue-200/20 bg-white/5 p-5 transition duration-200 hover:-translate-y-1 hover:border-amber-300/40 hover:bg-white/10 md:p-6"
+            className="rounded-2xl"
           >
-            <p className="inline-flex rounded-full bg-blue-900/30 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-blue-100">
-              {item.duration}
-            </p>
-            <h3 className="mt-3 text-lg font-semibold text-[#4f7dff]">{item.title}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-blue-100">{item.text}</p>
+            <button
+              type="button"
+              onClick={() => toggleProgramCard(idx)}
+              aria-pressed={Boolean(flippedPrograms[idx])}
+              aria-label={`Flip card for ${item.title}`}
+              className="group relative block min-h-[340px] w-full cursor-pointer [perspective:1000px]"
+            >
+              <div
+                className={`relative h-full min-h-[340px] rounded-2xl border border-blue-200/20 transition duration-500 [transform-style:preserve-3d] ${flippedPrograms[idx] ? '[transform:rotateY(180deg)]' : ''}`}
+              >
+                <div className="absolute inset-0 flex flex-col overflow-hidden rounded-2xl bg-white/5 [backface-visibility:hidden]">
+                  <img
+                    src={
+                      findAssetUrl(item.imageQuery) ||
+                      findAssetUrl(item.title) ||
+                      findAssetUrl(item.duration) ||
+                      findAssetUrl(`program-${idx + 1}`) ||
+                      logoImage
+                    }
+                    alt={item.title}
+                    className="h-48 w-full bg-slate-900/40 object-cover object-center"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="space-y-3 p-5 md:p-6">
+                    <p className="inline-flex rounded-full bg-blue-900/30 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-blue-100">
+                      {item.duration}
+                    </p>
+                    <h3 className="text-lg font-semibold text-[#4f7dff]">{item.title}</h3>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-amber-300">
+                      Tap to view details
+                    </p>
+                  </div>
+                </div>
+                <div className="absolute inset-0 rounded-2xl bg-white/10 p-5 [backface-visibility:hidden] [transform:rotateY(180deg)] md:p-6">
+                  <p className="inline-flex rounded-full bg-blue-900/30 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-blue-100">
+                    {item.duration}
+                  </p>
+                  <h3 className="mt-3 text-lg font-semibold text-[#4f7dff]">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-blue-100">{item.text}</p>
+                  <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-amber-300">
+                    Tap to see image
+                  </p>
+                </div>
+              </div>
+            </button>
           </Reveal>
         ))}
       </section>
