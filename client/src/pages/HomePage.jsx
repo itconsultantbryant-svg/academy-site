@@ -46,14 +46,14 @@ const PROGRAM_TYPES = [
       'Our Certificate Programs are intensive, skills-focused training courses designed to equip participants with practical knowledge and industry-relevant competencies within a 12-week period. These programs combine structured learning, hands-on experience, and professional guidance to help individuals build expertise and enhance career opportunities.',
   },
   {
-    imageQuery: 'Organization Training Programs',
+    imageQuery: 'organization_training',
     title: 'Organization Training Programs (Flexible Duration)',
     duration: 'Flexible Duration',
     text:
       'Our Organization Training Programs are customized learning solutions tailored to meet the specific needs and goals of businesses, institutions, and teams. Program duration is flexible based on organizational requirements, ensuring targeted skill development, improved performance, and measurable impact within the workplace.',
   },
   {
-    imageQuery: 'Acceleration Programs',
+    imageQuery: 'accelerated_programs',
     title: 'Acceleration Programs (Flexible Duration)',
     duration: 'Flexible Duration',
     text:
