@@ -3,15 +3,15 @@ import Reveal from '../components/Reveal'
 import usePageMeta from '../hooks/usePageMeta'
 
 const FACULTY = [
+  { name: 'Mr. Prince S Cooper', role: 'Chief Executive Officer', qualifications: 'Bsc, MBA, MA, PGDE, DIP-RE' },
   { name: 'Bishop Dr Jackson G Weah', role: 'Head of Academy Affairs', qualifications: 'Academic leadership and institutional management' },
-  { name: 'Mr. Prince S Cooper', qualifications: 'MBA, MA, PGDE, DIP-RE' },
-  { name: 'Miss Frances B Wallace', role: 'Coordinator', qualifications: 'B.Sc., Certificates' },
+  { name: 'Ms. Frances B Wallace', role: 'Coordinator', qualifications: 'B.Sc., Certificates' },
   { name: 'Mrs. Ernestine L.V Cooper', qualifications: 'MBA' },
   { name: 'Mr. James S Tokpa', qualifications: 'B.Sc., MBA Candidate' },
   { name: 'Dr. Mory Sunaworo', qualifications: 'PhD' },
   { name: 'Mr. Amos Sawboh', qualifications: 'MBA' },
   { name: 'Mr. William L Buku', qualifications: 'B.Sc., MBA Candidate' },
-  { name: 'Ms Yassa Robertson', qualifications: 'M.Sc.' },
+  { name: 'Ms. Yassah Robertson', qualifications: 'M.Sc.' },
   { name: 'Mr. Hassan Loseni Lassana Kenneh', qualifications: 'MBA' },
   { name: 'Mr. Derek Perkins', qualifications: 'MBA' },
   { name: 'Mr. Alvis T. Flomo', qualifications: 'MBA' },
