@@ -1,8 +1,8 @@
-import newOutledCohort12026Pdf from '../assets/Prinstine Academy New Outled Cohort 1 2026 Final 1.pdf?url'
+import cohort1NewsOutlet2026Pdf from '../assets/Prinstine Academy New Outled Cohort 1 2026 Final 1.pdf?url'
 import { findAssetUrl, getAssetUrlsMatchingNormalizedParts } from './assetLibrary'
 
-/** Public URL for the New Outled Cohort 1 (2026) information PDF (used on blog listing and articles). */
-export const newOutledCohort12026PdfUrl = newOutledCohort12026Pdf
+/** Public URL for the Cohort 1 2026 News Outlet PDF (blog listing and articles). */
+export const prinstineAcademyCohort12026NewsOutletPdfUrl = cohort1NewsOutlet2026Pdf
 
 function slideSet(prefix, count) {
   return Array.from({ length: count }, (_, index) => {
@@ -14,21 +14,22 @@ function slideSet(prefix, count) {
 const dinnerSlides = slideSet('Dinner-night', 10)
 const graduationSlides = slideSet('Graduation', 10)
 const awardSlides = [findAssetUrl('award-1')].filter(Boolean)
-const newOutledCohort1Slides = getAssetUrlsMatchingNormalizedParts('whatsapp', '20260513')
+const cohort1NewsOutletSlides = getAssetUrlsMatchingNormalizedParts('whatsapp', '20260513')
 
 export const localBlogPosts = [
   {
-    id: 'new-outled-cohort-1-2026',
-    title: 'New Outled Cohort 1 (2026)',
+    id: 'prinstine-academy-cohort-1-2026-news-outlet',
+    title: 'PRINSTINE ACADEMY-COHORT 1 2026',
     excerpt:
-      'Photos from the cohort and the official information sheet—view the PDF in your browser or download a copy.',
-    image: newOutledCohort1Slides[0] || '',
-    slides: newOutledCohort1Slides,
-    pdfUrl: newOutledCohort12026PdfUrl,
+      'News Outlet: cohort photos and the official information sheet—view the PDF in your browser or download a copy.',
+    image: cohort1NewsOutletSlides[0] || '',
+    slides: cohort1NewsOutletSlides,
+    pdfUrl: prinstineAcademyCohort12026NewsOutletPdfUrl,
     content: `
       <p>
-        We are pleased to share highlights from <strong>New Outled Cohort 1 (2026)</strong> and the official academy
-        information document for families and the public.
+        <strong>NEWS OUTLET</strong> — We are pleased to share highlights from
+        <strong>PRINSTINE ACADEMY-COHORT 1 2026</strong> and the official academy information document for families
+        and the public.
       </p>
       <p>
         Use the <strong>View document</strong> area on this page to read the PDF, or download it using the button
@@ -37,7 +38,7 @@ export const localBlogPosts = [
     `,
     meta: {
       category: 'Programs',
-      caption: 'New Outled Cohort 1 (2026)',
+      caption: 'NEWS OUTLET',
       location: 'Prinstine Academy',
     },
   },

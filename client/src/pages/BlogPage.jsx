@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { getPosts } from '../services/postService'
-import { newOutledCohort12026PdfUrl } from '../data/localBlogPosts'
+import { prinstineAcademyCohort12026NewsOutletPdfUrl } from '../data/localBlogPosts'
 import Reveal from '../components/Reveal'
 import { GridSkeleton } from '../components/Skeletons'
 import ErrorState from '../components/ErrorState'
@@ -140,11 +140,12 @@ export default function BlogPage() {
 
       <div className="overflow-hidden rounded-2xl border border-blue-200/20 bg-white/5 shadow-lg shadow-slate-950/20">
         <div className="border-b border-white/10 p-5 md:p-6">
-          <p className="text-xs font-semibold uppercase tracking-wide text-amber-300">Public document</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-amber-300">News Outlet · Public document</p>
           <h2 className="mt-2 text-xl font-semibold tracking-tight text-white md:text-2xl">
-            New Outled Cohort 1 (2026) — Information sheet
+            PRINSTINE ACADEMY-COHORT 1 2026
           </h2>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-blue-100">
+          <p className="mt-1 text-sm font-semibold uppercase tracking-wide text-blue-100/90">Information sheet (PDF)</p>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-blue-100">
             View the official PDF below, open it in a new tab for fullscreen reading, or download it for offline use.
             Event photos for this cohort are also on the{' '}
             <Link to="/gallery" className="font-semibold text-amber-300 underline-offset-2 hover:underline">
@@ -152,7 +153,7 @@ export default function BlogPage() {
             </Link>{' '}
             and in the matching{' '}
             <Link
-              to="/blog/new-outled-cohort-1-2026"
+              to="/blog/prinstine-academy-cohort-1-2026-news-outlet"
               className="font-semibold text-amber-300 underline-offset-2 hover:underline"
             >
               blog article
@@ -161,7 +162,7 @@ export default function BlogPage() {
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <a
-              href={newOutledCohort12026PdfUrl}
+              href={prinstineAcademyCohort12026NewsOutletPdfUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-white/25 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
@@ -169,8 +170,8 @@ export default function BlogPage() {
               Open PDF in new tab
             </a>
             <a
-              href={newOutledCohort12026PdfUrl}
-              download="Prinstine-Academy-New-Outled-Cohort-1-2026.pdf"
+              href={prinstineAcademyCohort12026NewsOutletPdfUrl}
+              download="PRINSTINE-ACADEMY-COHORT-1-2026-NEWS-OUTLET.pdf"
               className="inline-flex items-center gap-2 rounded-full bg-amber-400 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-amber-300"
             >
               Download PDF
@@ -178,8 +179,8 @@ export default function BlogPage() {
           </div>
         </div>
         <iframe
-          title="New Outled Cohort 1 (2026) information sheet (PDF)"
-          src={newOutledCohort12026PdfUrl}
+          title="PRINSTINE ACADEMY-COHORT 1 2026 — NEWS OUTLET (PDF)"
+          src={prinstineAcademyCohort12026NewsOutletPdfUrl}
           className="min-h-[min(65vh,680px)] w-full bg-slate-900/40"
         />
       </div>

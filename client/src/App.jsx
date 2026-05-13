@@ -64,6 +64,10 @@ export default function App() {
               <Route path="/courses" element={<CoursesPage />} />
               <Route path="/courses/:id" element={<CourseDetailsPage />} />
               <Route path="/blog" element={<BlogPage />} />
+              <Route
+                path="/blog/new-outled-cohort-1-2026"
+                element={<Navigate to="/blog/prinstine-academy-cohort-1-2026-news-outlet" replace />}
+              />
               <Route path="/blog/:id" element={<ArticlePage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />

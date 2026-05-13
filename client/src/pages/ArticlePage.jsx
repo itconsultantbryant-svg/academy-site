@@ -221,7 +221,7 @@ export default function ArticlePage() {
                 </a>
                 <a
                   href={post.pdfUrl}
-                  download="Prinstine-Academy-New-Outled-Cohort-1-2026.pdf"
+                  download="PRINSTINE-ACADEMY-COHORT-1-2026-NEWS-OUTLET.pdf"
                   className="inline-flex items-center gap-2 rounded-full bg-amber-400 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-amber-300"
                 >
                   Download PDF
