@@ -8,7 +8,7 @@ const FACULTY = [
   { name: 'Ms. Frances B Wallace', role: 'Coordinator-Prinstine Academy', qualifications: 'B.Sc., Certificates' },
   { name: 'Mrs. Ernestine L.V Cooper', qualifications: 'MBA' },
   { name: 'Mr. James S Tokpa', qualifications: 'B.Sc., MBA Candidate' },
-  { name: 'Dr. Mory Sunaworo', qualifications: 'PhD' },
+  { name: 'Dr. Mory Sumaworo', qualifications: 'PhD' },
   { name: 'Mr. Amos Sawboh', qualifications: 'MBA' },
   { name: 'Mr. William L Buku', qualifications: 'B.Sc., MBA Candidate' },
   { name: 'Ms. Yassah Robertson', qualifications: 'M.Sc.' },
