@@ -140,11 +140,11 @@ export default function BlogPage() {
 
       <div className="overflow-hidden rounded-2xl border border-blue-200/20 bg-white/5 shadow-lg shadow-slate-950/20">
         <div className="border-b border-white/10 p-5 md:p-6">
-          <p className="text-xs font-semibold uppercase tracking-wide text-amber-300">News Outlet · Public document</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-amber-300">News Outlet</p>
           <h2 className="mt-2 text-xl font-semibold tracking-tight text-white md:text-2xl">
             PRINSTINE ACADEMY-COHORT 1 2026
           </h2>
-          <p className="mt-1 text-sm font-semibold uppercase tracking-wide text-blue-100/90">Information sheet (PDF)</p>
+          <p className="mt-1 text-sm font-semibold uppercase tracking-wide text-blue-100/90">News Outlet  (PDF)</p>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-blue-100">
             View the official PDF below, open it in a new tab for fullscreen reading, or download it for offline use.
             Event photos for this cohort are also on the{' '}
